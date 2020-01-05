@@ -25,10 +25,10 @@ public class Notes {
     public static final int TYPE_SYSTEM   = 2;
 
     /**
-     * Following IDs are system folders' identifiers
-     * {@link Notes#ID_ROOT_FOLDER } is default folder
-     * {@link Notes#ID_TEMPARAY_FOLDER } is for notes belonging no folder
-     * {@link Notes#ID_CALL_RECORD_FOLDER} is to store call records
+     * Following IDs are system folders' identifiers      系统文件夹的分类标识
+     * {@link Notes#ID_ROOT_FOLDER } is default folder          默认文件夹
+     * {@link Notes#ID_TEMPARAY_FOLDER } is for notes belonging no folder       不属于任何文件夹
+     * {@link Notes#ID_CALL_RECORD_FOLDER} is to store call records         用来存储通话记录的文件夹？
      */
     public static final int ID_ROOT_FOLDER = 0;
     public static final int ID_TEMPARAY_FOLDER = -1;

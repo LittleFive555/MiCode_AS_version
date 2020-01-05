@@ -25,10 +25,16 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+/**
+ * 手机联系人
+ */
 public class Contact {
     private static HashMap<String, String> sContactCache;
     private static final String TAG = "Contact";
 
+    /**
+     * 选择语句
+     */
     private static final String CALLER_ID_SELECTION = "PHONE_NUMBERS_EQUAL(" + Phone.NUMBER
     + ",?) AND " + Data.MIMETYPE + "='" + Phone.CONTENT_ITEM_TYPE + "'"
     + " AND " + Data.RAW_CONTACT_ID + " IN "
@@ -36,6 +42,12 @@ public class Contact {
             + " FROM phone_lookup"
             + " WHERE min_match = '+')";
 
+    /**
+     * 通过手机号查询是否有联系人
+     * @param context
+     * @param phoneNumber 手机号
+     * @return 联系人姓名 或 空
+     */
     public static String getContact(Context context, String phoneNumber) {
         if(sContactCache == null) {
             sContactCache = new HashMap<String, String>();
