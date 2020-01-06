@@ -20,10 +20,10 @@
     android:layout_height="fill_parent"
     android:background="@drawable/list_background"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--便签内容部分-->
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
@@ -67,13 +67,14 @@
             android:id="@+id/sv_note_edit"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginBottom="50dp"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="7dip"
                 android:background="@drawable/bg_color_btn_mask" />
-
+            <!--内容输入-->
             <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="0dip"
@@ -86,10 +87,10 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
-
+                    <!--内容输入部分-->
                     <net.micode.notes.ui.NoteEditText
                         android:id="@+id/note_edit_view"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left|top"
                         android:background="@null"
@@ -109,6 +110,32 @@
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
+            <!--显示图片-->
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                android:layout_gravity="left|top"
+                android:fadingEdgeLength="0dip">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="你的图片："/>
+                    <ImageView
+                        android:id="@+id/picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal" />
+                </LinearLayout>
+
+
+            </ScrollView>
 
             <ImageView
                 android:layout_width="fill_parent"
@@ -123,7 +150,7 @@
         android:layout_width="wrap_content"
         android:background="@drawable/bg_color_btn_mask"
         android:layout_gravity="top|right" />
-
+<!-- 选择背景颜色-->
     <LinearLayout
         android:id="@+id/note_bg_color_selector"
         android:layout_width="wrap_content"
@@ -237,7 +264,7 @@
                 android:src="@drawable/selected" />
         </FrameLayout>
     </LinearLayout>
-
+<!--选择字体大小-->
     <LinearLayout
         android:id="@+id/font_size_selector"
         android:layout_width="fill_parent"
@@ -399,6 +426,7 @@
         </FrameLayout>
     </LinearLayout>
 
+<!-- 额外功能-->
     <LinearLayout
         android:id="@+id/extra_functions"
         android:layout_width="fill_parent"
@@ -410,18 +438,18 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="相机拍照"/>
+            android:text="@string/take_photo"/>
         <Button
             android:id="@+id/choose_from_album"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="从图库选择"/>
+            android:text="@string/choose_from_album"/>
         <Button
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="录音"/>
+            android:text="@string/recording"/>
     </LinearLayout>
 
 </FrameLayout>
