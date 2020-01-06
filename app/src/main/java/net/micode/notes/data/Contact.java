@@ -33,7 +33,7 @@ public class Contact {
     private static final String TAG = "Contact";
 
     /**
-     * 选择语句
+     * 查询语句
      */
     private static final String CALLER_ID_SELECTION = "PHONE_NUMBERS_EQUAL(" + Phone.NUMBER
     + ",?) AND " + Data.MIMETYPE + "='" + Phone.CONTENT_ITEM_TYPE + "'"
