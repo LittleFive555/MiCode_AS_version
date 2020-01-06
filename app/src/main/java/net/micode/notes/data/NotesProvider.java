@@ -34,7 +34,11 @@ import net.micode.notes.data.Notes.DataColumns;
 import net.micode.notes.data.Notes.NoteColumns;
 import net.micode.notes.data.NotesDatabaseHelper.TABLE;
 
-
+/**
+ * 内容提供者ContentProvider的子类，是中间接口，本身并不直接保存数据，
+ * 而是通过SQLiteOpenHelper与SQLiteDatabase间接操作底层的SQLite。
+ * 要想使用ContentProvider，首先得实现DatabaseHelper，然后由ContentProvider封装对外的接口
+ */
 public class NotesProvider extends ContentProvider {
     private static final UriMatcher mMatcher;
 
@@ -50,6 +54,7 @@ public class NotesProvider extends ContentProvider {
     private static final int URI_SEARCH          = 5;
     private static final int URI_SEARCH_SUGGEST  = 6;
 
+    //这里的AUTHORITIES必须与AndroidManifest.xml里的android:authorities保持一致
     static {
         mMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mMatcher.addURI(Notes.AUTHORITY, "note", URI_NOTE);
@@ -63,7 +68,8 @@ public class NotesProvider extends ContentProvider {
 
     /**
      * x'0A' represents the '\n' character in sqlite. For title and content in the search result,
-     * we will trim '\n' and white space in order to show more information.
+     * we will trim '\n' and white space in order to show more information.<br>
+     * x'OA'表示sqlite中的'\n'，对于查询结果中的title和content，我们移除'\n'和空格来显示更多的信息
      */
     private static final String NOTES_SEARCH_PROJECTION = NoteColumns.ID + ","
         + NoteColumns.ID + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA + ","
@@ -196,7 +202,8 @@ public class NotesProvider extends ContentProvider {
                 id = uri.getPathSegments().get(1);
                 /**
                  * ID that smaller than 0 is system folder which is not allowed to
-                 * trash
+                 * trash<br>
+                 * ID小于0的是系统文件夹，不允许移到垃圾中
                  */
                 long noteId = Long.valueOf(id);
                 if (noteId <= 0) {
@@ -267,10 +274,21 @@ public class NotesProvider extends ContentProvider {
         return count;
     }
 
+    /**
+     * 将selection转换为String格式
+     * @param selection
+     * @return selection的字符串格式
+     */
     private String parseSelection(String selection) {
         return (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "");
     }
 
+    /**
+     * 增加便签的版本号
+     * @param id 与数据库中行的id进行比对的id
+     * @param selection
+     * @param selectionArgs
+     */
     private void increaseNoteVersion(long id, String selection, String[] selectionArgs) {
         StringBuilder sql = new StringBuilder(120);
         sql.append("UPDATE ");
@@ -285,6 +303,11 @@ public class NotesProvider extends ContentProvider {
         if (id > 0) {
             sql.append(NoteColumns.ID + "=" + String.valueOf(id));
         }
+        /**
+         * 我们在 selection 中需要嵌入字符串的地方用 ? 代替，然后在 selectionArgs 中依次提供各个用于替换的值就可以了。
+         * 在 query() 执行时会对 selectionArgs 中的字符串正确转义并替换到对应的 ? 处以构成完整的 selection 字符串。
+         * 有点像 String.format()。
+         */
         if (!TextUtils.isEmpty(selection)) {
             String selectString = id > 0 ? parseSelection(selection) : selection;
             for (String args : selectionArgs) {
