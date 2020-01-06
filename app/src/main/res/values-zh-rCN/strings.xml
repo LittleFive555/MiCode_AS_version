@@ -122,5 +122,8 @@
     <plurals name="search_results_title">
         <item quantity="other"><xliff:g id="NUMBER">%1$s</xliff:g> 条符合“<xliff:g id="SEARCH">%2$s</xliff:g>”的搜索结果</item>
     </plurals>
-
+    <!--extra-->
+    <string name="take_photo">相机拍照</string>
+    <string name="choose_from_album">从相册选择</string>
+    <string name="recording">录音</string>
 </resources>
